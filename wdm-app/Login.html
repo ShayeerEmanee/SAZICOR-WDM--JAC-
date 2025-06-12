@@ -1,0 +1,213 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Sazicor | Login</title>
+    <!-- Fonts -->
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    
+    <style>
+        .card {
+            color: #000 !important;
+        }
+
+        .my-form {
+            padding-top: 1.5rem;
+            padding-bottom: 1.5rem;
+        }
+
+            .my-form .row {
+                margin-left: 0;
+                margin-right: 0;
+            }
+
+        .login-form {
+            padding-top: 1.5rem;
+            padding-bottom: 1.5rem;
+        }
+
+            .login-form .row {
+                margin-left: 0;
+                margin-right: 0;
+            }
+
+        .jumbotron {
+            /*background-color: #c10003; --old*/
+            background-color: #0072C6 !important;
+            color: #fff !important;
+        }
+
+        .btn-link {
+            font-size: 12px;
+        }
+
+        .forgot {
+            color: #0072C6;
+            line-height: .9em;
+            position: relative;
+            top: 1em;
+            text-decoration: none;
+            font-size: .9em;
+            margin: 0;
+            padding: 0;
+            float: right;
+        }
+        .imagebackground {
+            background: url('images/mountain-river.jpg') !important;
+            background-repeat: no-repeat !important;
+            background-size: cover !important;
+            background-position: center;
+           
+        }
+        .bg-login-prompt {
+            background-color: #0089ce !important;
+            color: #fff !important;
+        }
+    </style>
+
+
+</head>
+<body class="HomePage Wide Tall" data-authorize-roles="?" >
+    <div data-app-role="page" data-content-framework="bootstrap" class="imagebackground">
+        <!-- Main jumbotron for a primary marketing message or call to action-->
+
+        <div class="jumbotron imagebackground">
+            <div class="container text-center">
+                <h1>WDM App Login</h1>
+                <p>Better way of managing website data.</p>
+            </div>
+        </div>
+
+        <div class="login-form">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header bg-login-prompt text-center">You must sign in to access the protected content.</div>
+                            <div class="card-body bg-light">
+                                <form action="" method="">
+                                    <div class="card-body pt-20">
+                                        <div class="form-group row">
+                                            <label for="login-user-name" class="col-md-4 col-form-label text-md-right">Username</label>
+                                            <div class="col-md-6">
+                                                <input id="login-user-name" name="login-user-name" type="text" placeholder="Username" class="form-control" autocapitalize="off">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label for="login-password" class="col-md-4 col-form-label text-md-right">Password</label>
+                                            <div class="col-md-6">
+                                                <input id="login-password" name="login-password" type="password" placeholder="Password" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-md-4 offset-md-2">
+                                            <div class="checkbox">
+                                                <label><input type="checkbox" name="remember"> Remember Me</label>
+                                            </div>
+                                        </div>                                        
+                                        <div class="col-md-5">
+                                            <div class="checkbox">
+                                                <label><a id="forgot-password" href="#">Forgot Your Password?</a></label>
+                                            </div>
+                                        </div>                                        
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 offset-md-4">
+                                            <button id="login-button" class="btn btn-success">Sign in</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            
+                                            <!--<a id="forgot-password" href="#" class="forgot">Forgot Your Password?</a>
+                                                <a class="btn btn-link" href="#" id="admin-login">Login as Admin</a><br />
+                                                <a class="btn btn-link" href="#" id="user-login">Login as User</a>
+                                            -->
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer id="footer" class="footer-top-border bg-color-light-scale-1">
+            <div class="footer-copyright bg-color-light-scale-1">
+                <div class="container py-2">
+
+                </div>
+            </div>
+        </footer>
+
+    </div>
+
+
+    <script type="text/javascript">
+        (function () {
+            var resources = Web.MembershipResources.Messages;
+
+            function performLogin(username, password) {
+
+                var userNameElem = $('#login-user-name'),
+                    passwordElem = $('#login-password');
+
+                if (!username)
+                    username = userNameElem.val();
+                if (!password)
+                    password = passwordElem.val();
+
+                if (!username)
+                    $app.alert(resources.BlankUserName, function () {
+                        userNameElem.focus();
+                    });
+                else if (!password)
+                    $app.alert(resources.BlankPassword, function () {
+                        passwordElem.focus();
+                    });
+                else
+                    $app.login(username, password, true,
+                        function () {
+                            setTimeout(function () {
+                                $app._navigated = true;
+                                var returnUrl = window.location.href.match(/\?ReturnUrl=(.+)$/);
+                                window.location.replace(returnUrl && decodeURIComponent(returnUrl[1]) || __baseUrl);
+                            });
+                        },
+                        function () {
+                            $app.alert(resources.InvalidUserNameAndPassword, function () {
+                                userNameElem.focus();
+                            });
+                        });
+                return false;
+            }
+
+            $(document)
+                .on('click', '#forgot-password', function () {
+                    $app.touch.show({
+                        controller: 'MyProfile',
+                        startCommand: 'New',
+                        startArgument: 'passwordRequestForm'
+                    });
+                })
+                .on('click', '#login-button', function () {
+                    performLogin();
+                })
+                .on('click', '#admin-login', function () {
+                    performLogin('admin', 'admin123%');
+                })
+                .on('click', '#user-login', function () {
+                    performLogin('user', 'user123%');
+                })
+                .on('keydown', 'input', function (event) {
+                    if (event.which == 13) {
+                        event.preventDefault();
+                        performLogin();
+                        return false;
+                    }
+                });
+        })();
+    </script>
+</body>
+</html>

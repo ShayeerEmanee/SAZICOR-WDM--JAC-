@@ -1,0 +1,143 @@
+﻿{
+  "server": {
+    "bootstrap": {
+      "js": true
+    }
+  },
+  "defaultUI": "TouchUI",
+  "appName": "Sazicor",
+  "ui": {
+    "readingPane": {
+      "enabled": true,
+      "background": "~/images/reading-pane-bkg.jpg"
+    },
+    "automation": {
+      "enabled": true,
+      "kiosk": {
+        "enabled": false,
+        "gapColor": true,
+        "maxWidth": 2000,
+        "copyright": false,
+        "fullscreen": false
+      }
+    },
+    "theme": {
+      "name": "Light",
+      "accent": "Social",
+      "icons": "outlined",
+      "preview": null
+    },
+    "displayDensity": {
+      "mobile": "Auto",
+      "desktop": "Condensed"
+    },
+    "list": {
+      "labels": {
+        "display": "DisplayedBelow"
+      },
+      "initialMode": "SeeAll"
+    },
+    "menu": {
+      "tabbar": null,
+      "location": "toolbar",
+      "apps": {
+        "tiles": true,
+        "location": "sidebar"
+      }
+    },
+    "actions": {
+      "form": {
+        "icons": true
+      },
+      "promote": true,
+      "reverse": null,
+      "autoReverse": null
+    },
+    "transitions": {
+      "style": "slide"
+    },
+    "sidebar": {
+      "icons": true,
+      "mini": true,
+      "toolbar": true,
+      "views": {
+        "styles": null,
+        "names": null,
+        "collapsed": false
+      },
+      "when": "Landscape"
+    },
+    "toolbar": {
+      "apps": true
+    },
+    "scrollbars": {
+      "wide": true
+    },
+    "apps": {
+      "location": "toolbar"
+    },
+    "showSystemButtons": true,
+    "smartDates": false,
+    "notify": {
+      "enabled": true,
+      "location": "center",
+      "duration": {
+        "short": 2500,
+        "medium": 5000,
+        "long": 7500
+      }
+    },
+    "thumbnail": {
+      "width": 100,
+      "height": 100,
+      "crop": true
+    }
+  },
+  "settings": {
+    "enabled": false,
+    "options": {
+      "displayDensity": true,
+      "theme": false,
+      "transitions": false,
+      "sidebar": false,
+      "labelsInList": false,
+      "showSystemButtons": false,
+      "promoteActions": false,
+      "smartDates": false,
+      "initialListMode": false
+    }
+  },
+  "membership": {
+    "enabled": true,
+    "profile": "view switch logout login",
+    "help": true,
+    "displayHelp": true,
+    "displayLogin": true,
+    "displayRememberMe": true,
+    "displayPasswordRecovery": true,
+    "displaySignUp": true,
+    "accountManager": {
+      "enabled": false,
+      "accessTokenDuration": 15,
+      "refreshTokenDuration": 10080
+    }
+  },
+  "help": {
+    "enabled": true
+  },
+  "splash": {
+    "enabled": false,
+    "logo": "~/images/logo.png",
+    "background": "~/images/splash.jpg",
+    "duration": 2500
+  },
+  "dates": {
+    "localTime": {
+      "enabled": false
+    }
+  },
+
+  "import": {
+    "batchSize": 2000
+  }
+}

@@ -1,0 +1,183 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<dataController name="EventFlags" conflictDetection="overwriteChanges" label="Event Flags" xmlns="urn:schemas-codeontime-com:data-aquarium">
+  <commands>
+    <command id="command1" type="Text">
+      <text><![CDATA[
+select
+	"event_flags"."event_id" "EventID"
+	,"event"."event_title" "EventTitle"
+	,"event"."client_id" "ClientID"
+	,"event_client"."client_name" "ClientName"
+	,"event_status"."lookup_value" "EventStatus"
+	,"event_flags"."flag_id" "FlagID"
+	,"flag"."lookup_value" "FlagName"
+	,"event_flags"."created_by" "CreatedBy"
+	,"event_flags"."created_on" "CreatedOn"
+	,"event_flags"."modified_by" "ModifiedBy"
+	,"event_flags"."modified_on" "ModifiedOn"
+from "dbo"."event_flags" "event_flags"
+	left join "dbo"."events" "event" on "event_flags"."event_id" = "event"."event_id"
+	left join "dbo"."clients" "event_client" on "event"."client_id" = "event_client"."client_id"
+	left join "dbo"."lookups" "event_status" on "event"."status_id" = "event_status"."lookup_id"
+	left join "dbo"."lookups" "flag" on "event_flags"."flag_id" = "flag"."lookup_id"
+]]></text>
+    </command>
+  </commands>
+  <fields>
+    <field name="EventID" type="Decimal" allowNulls="false" isPrimaryKey="true" label="Event Id" showInSummary="true">
+      <items style="Lookup" dataController="Events" dataValueField="EventID" dataTextField="EventTitle" copy="ClientID=ClientID, ClientName=ClientName, EventStatus=Status" dataView="grid1" />
+    </field>
+    <field name="EventTitle" type="String" readOnly="true" label="Event Title" length="100" />
+    <field name="ClientID" type="Guid" readOnly="true" label="Client Id" />
+    <field name="ClientName" type="String" readOnly="true" label="Client Name" length="100" />
+    <field name="EventStatus" type="String" readOnly="true" label="Event Status" length="200" />
+    <field name="FlagID" type="Decimal" allowNulls="false" isPrimaryKey="true" label="Flag Id" showInSummary="true">
+      <items style="AutoComplete" dataController="Lookups" dataValueField="LookupID" dataTextField="LookupValue" dataView="grid1" />
+    </field>
+    <field name="FlagName" type="String" readOnly="true" label="Flag Name" length="200" />
+    <field name="CreatedBy" type="String" label="Created By" length="50" showInSummary="true" />
+    <field name="CreatedOn" type="DateTime" dataFormatString="g" label="Created On" showInSummary="true" />
+    <field name="ModifiedBy" type="String" label="Modified By" length="50" showInSummary="true" />
+    <field name="ModifiedOn" type="DateTime" dataFormatString="g" label="Modified On" />
+  </fields>
+  <views>
+    <view id="grid1" type="Grid" commandId="command1" label="Event Flags">
+      <headerText>$DefaultGridViewDescription</headerText>
+      <dataFields>
+        <dataField fieldName="EventID" aliasFieldName="EventTitle" />
+        <dataField fieldName="ClientID" columns="15" />
+        <dataField fieldName="ClientName" />
+        <dataField fieldName="EventStatus" />
+        <dataField fieldName="FlagID" aliasFieldName="FlagName" />
+        <dataField fieldName="CreatedBy" columns="50" />
+        <dataField fieldName="CreatedOn" columns="20" />
+        <dataField fieldName="ModifiedBy" columns="50" />
+        <dataField fieldName="ModifiedOn" columns="20" />
+      </dataFields>
+    </view>
+    <view id="editForm1" type="Form" commandId="command1" label="Review Event Flags">
+      <headerText>$DefaultEditViewDescription</headerText>
+      <categories>
+        <category id="c1" headerText="Event Flags" flow="NewColumn">
+          <description><![CDATA[$DefaultEditDescription]]></description>
+          <dataFields>
+            <dataField fieldName="EventID" aliasFieldName="EventTitle" />
+            <dataField fieldName="ClientID" columns="15" />
+            <dataField fieldName="ClientName" />
+            <dataField fieldName="EventStatus" />
+            <dataField fieldName="FlagID" aliasFieldName="FlagName" />
+            <dataField fieldName="CreatedBy" columns="50" />
+            <dataField fieldName="CreatedOn" columns="20" />
+            <dataField fieldName="ModifiedBy" columns="50" />
+            <dataField fieldName="ModifiedOn" columns="20" />
+          </dataFields>
+        </category>
+      </categories>
+    </view>
+    <view id="createForm1" type="Form" commandId="command1" label="New Event Flags">
+      <headerText>$DefaultCreateViewDescription</headerText>
+      <categories>
+        <category id="c1" flow="NewColumn">
+          <description><![CDATA[$DefaultNewDescription]]></description>
+          <dataFields>
+            <dataField fieldName="EventID" aliasFieldName="EventTitle" />
+            <dataField fieldName="ClientID" columns="15" />
+            <dataField fieldName="ClientName" />
+            <dataField fieldName="EventStatus" />
+            <dataField fieldName="FlagID" aliasFieldName="FlagName" />
+            <dataField fieldName="CreatedBy" columns="50" />
+            <dataField fieldName="CreatedOn" columns="20" />
+            <dataField fieldName="ModifiedBy" columns="50" />
+            <dataField fieldName="ModifiedOn" columns="20" />
+          </dataFields>
+        </category>
+      </categories>
+    </view>
+  </views>
+  <actions>
+    <actionGroup id="ag1" scope="Grid">
+      <action id="a1" commandName="Select" commandArgument="editForm1" />
+      <action id="a2" commandName="Edit" />
+      <action id="a3" commandName="Delete" />
+      <action id="a6" />
+      <action id="a7" commandName="New" commandArgument="grid1" />
+      <action id="a8" commandName="Duplicate" commandArgument="createForm1" />
+    </actionGroup>
+    <actionGroup id="ag2" scope="Form">
+      <action id="a1" commandName="Edit" />
+      <action id="a2" commandName="Delete" />
+      <action id="a3" commandName="Cancel" />
+      <action id="a4" whenLastCommandName="Edit" commandName="Update" commandArgument="Save" />
+      <action id="a5" whenLastCommandName="Edit" commandName="Cancel" />
+      <action id="a6" whenLastCommandName="New" commandName="Insert" commandArgument="Save" />
+      <action id="a7" whenLastCommandName="New" commandName="Insert" commandArgument="SaveAndNew" />
+      <action id="a8" whenLastCommandName="New" commandName="Cancel" />
+      <action id="a9" whenLastCommandName="Duplicate" commandName="Insert" />
+      <action id="a10" whenLastCommandName="Duplicate" commandName="Cancel" />
+      <action id="a13" whenLastCommandName="Insert" whenLastCommandArgument="Save" whenView="createForm1" commandName="Select" commandArgument="editForm1" whenClientScript="this.hasDetails()" />
+      <action id="a14" whenLastCommandName="Insert" whenLastCommandArgument="SaveAndNew" commandName="New" commandArgument="createForm1" />
+    </actionGroup>
+    <actionGroup id="ag3" scope="ActionBar" headerText="New" flat="true">
+      <action id="a1" commandName="New" commandArgument="createForm1" cssClass="NewIcon" />
+    </actionGroup>
+    <actionGroup id="ag4" scope="ActionBar" headerText="Edit/Delete" flat="true">
+      <action id="a1" whenKeySelected="true" commandName="Edit" commandArgument="editForm1" cssClass="EditIcon" whenView="grid1" />
+      <action id="a2" whenKeySelected="true" commandName="Delete" cssClass="DeleteIcon" whenView="grid1" />
+    </actionGroup>
+    <actionGroup id="ag5" scope="ActionBar" headerText="Actions">
+      <action id="a1" commandName="ExportCsv" />
+      <action id="a2" />
+      <action id="a3" commandName="ExportRowset" />
+      <action id="a4" commandName="ExportRss" />
+      <action id="a5" />
+      <action id="a6" commandName="Import" commandArgument="createForm1" />
+      <action id="a7" commandName="DataSheet" />
+      <action id="a8" commandName="Grid" />
+    </actionGroup>
+    <actionGroup id="ag6" scope="ActionBar" headerText="Record">
+      <action id="a1" whenLastCommandName="Edit" commandName="Update" />
+      <action id="a2" whenLastCommandName="Edit" commandName="Cancel" />
+      <action id="a3" whenLastCommandName="New" commandName="Insert" />
+      <action id="a4" whenLastCommandName="New" commandName="Cancel" />
+    </actionGroup>
+    <actionGroup id="ag7" scope="ActionBar" headerText="Report">
+      <action id="a1" commandName="ReportAsPdf" />
+      <action id="a2" commandName="ReportAsImage" />
+      <action id="a3" commandName="ReportAsExcel" />
+      <action id="a4" commandName="ReportAsWord" />
+    </actionGroup>
+    <actionGroup id="ag8" scope="Row">
+      <action id="a4" whenLastCommandName="Edit" commandName="Update" />
+      <action id="a5" whenLastCommandName="Edit" commandName="Cancel" />
+      <action id="a6" whenLastCommandName="New" commandName="Insert" />
+      <action id="a7" whenLastCommandName="New" commandName="Cancel" />
+    </actionGroup>
+  </actions>
+  <businessRules>
+    <rule id="r100" commandName="Insert|Update" type="Sql" phase="After"><![CDATA[declare @vFlagKey nvarchar(50)
+
+select 
+	@ClientID = u.client_id, 
+	@ClientName = c.client_name    
+from users u 
+inner join clients c on c.client_id = u.client_id
+where u.user_id = @BusinessRules_UserId
+
+select 
+	@vFlagKey = lookup_key
+from lookups 
+where client_id = @ClientID and lookup_id = @FlagID
+
+if @vFlagKey = 'Focus Event'
+begin
+
+delete f from event_flags f
+inner join events e 
+on (e.event_id = f.event_id and e.client_id = @ClientID)
+inner join lookups l
+on (l.lookup_id = f.flag_id and l.lookup_key = 'Focus Event')
+where f.event_id <> @EventID and exists (select b.event_id from events b where year(b.event_date) = year(e.event_date) )
+
+end]]></rule>
+  </businessRules>
+</dataController>

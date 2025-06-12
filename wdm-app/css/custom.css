@@ -1,0 +1,35 @@
+﻿/*.app-bar-toolbar .app-logo {
+    text-indent: -9999px;
+    width: 120px;
+    left: 43px !important;
+    padding: 0px;
+    background-image: url("/images/mqlogo.png");
+    background-color: #fff;
+    background-size: auto -40px;
+    background-position: center center;
+}*/
+
+/*style="text-indent: -9999px; width: 120px; left: 43px !important; padding: 0px; background-size: auto -40px;background-position: center center;"
+style="float:left; margin-top: 0px; margin-left: 0px; margin-right: 10px;"*/
+/* this is to hide see all in data-view */
+.app-echo-see-all {
+    visibility: hidden;
+}
+/*Image background*/
+.imagebackground {
+    background: url('../images/acc-man-bkg.jpg');
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+    background-position: center;
+}
+
+.gallery-grid {
+    padding: 5px 5px !important;
+    
+}
+
+.gallery-grid img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
