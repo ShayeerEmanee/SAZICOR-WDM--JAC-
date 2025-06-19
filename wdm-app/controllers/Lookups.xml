@@ -46,7 +46,7 @@ from "dbo"."lookups" "lookups"
     <field name="ModifiedOn" type="DateTime" dataFormatString="g" label="Modified On" />
   </fields>
   <views>
-    <view id="grid1" type="Grid" commandId="command1" label="Lookups" filter="is_active = 1">
+    <view id="grid1" type="Grid" commandId="command1" label="Lookups">
       <headerText>$DefaultGridViewDescription</headerText>
       <dataFields>
         <dataField fieldName="LookupID" columns="15" />

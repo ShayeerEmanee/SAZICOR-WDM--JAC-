@@ -52,11 +52,11 @@ from "dbo"."users" "users"
   </commands>
   <fields>
     <field name="UserID" type="Decimal" allowNulls="false" isPrimaryKey="true" label="User Id" readOnly="true" showInSummary="true" />
-    <field name="ClientID" type="Guid" label="Client id">
+    <field name="ClientID" type="Guid" label="Client Id">
       <items style="DropDownList" dataController="Clients" dataValueField="ClientID" dataTextField="ClientName" dataView="grid1" copy="ClientName=ClientName" />
     </field>
     <field name="ClientName" type="String" readOnly="true" label="Client Name" length="100" />
-    <field name="UserName" type="String" allowNulls="false" label="User Name" length="50" showInSummary="true" />
+    <field name="UserName" type="String" allowNulls="false" label="User Name" length="50" showInSummary="true" causesCalculate="true" />
     <field name="UserEmail" type="String" allowNulls="false" label="User Email" length="50" />
     <field name="UserPassword" type="String" allowNulls="false" label="User Password" length="50" />
     <field name="ConfirmPassword" type="String" label="Confirm Password" allowQBE="false" allowSorting="false" computed="true" isVirtual="true" length="50">
@@ -74,7 +74,9 @@ from "dbo"."users" "users"
     <field name="UserComment" type="String" label="User Comment" length="200" />
     <field name="EulaAcceptedOn" type="DateTime" dataFormatString="g" label="Eula Accepted On" />
     <field name="AdminComment" type="String" label="Admin Comment" length="200" />
-    <field name="PasswordQuestion" type="String" label="Password Question" length="100" />
+    <field name="PasswordQuestion" type="String" label="Password Question" length="100" contextFields="ClientID=ClientID, LookupGroup='Password Questions'">
+      <items style="DropDownList" dataController="Lookups" dataView="grid1" dataTextField="LookupValue" dataValueField="LookupValue" />
+    </field>
     <field name="PasswordAnswer" type="String" label="Password Answer" length="50" />
     <field name="ConfirmAnswer" type="String" label="Confirm Answer" allowQBE="false" allowSorting="false" computed="true" isVirtual="true" length="50">
       <formula>"users"."password_answer"</formula>
@@ -235,7 +237,7 @@ from "dbo"."users" "users"
             <dataField fieldName="UserID" columns="15" />
             <dataField fieldName="ClientID" aliasFieldName="ClientName" columns="15" />
             <dataField fieldName="UserName" columns="30" />
-            <dataField fieldName="UserEmail" columns="30" />
+            <dataField fieldName="UserEmail" columns="30" textMode="Text" />
             <dataField fieldName="UserPassword" columns="20" textMode="Password" />
             <dataField fieldName="ConfirmPassword" columns="20" textMode="Password" />
             <dataField fieldName="PasswordQuestion" columns="50" />

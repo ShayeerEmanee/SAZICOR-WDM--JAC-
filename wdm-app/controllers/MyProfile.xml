@@ -10,9 +10,7 @@
     <field name="ConfirmPassword" type="String" allowNulls="false" label="^ConfirmPassword^Confirm Password^ConfirmPassword^" />
     <field name="OldPassword" type="String" allowNulls="false" label="^OldPassword^Old Password^OldPassword^" />
     <field name="Email" type="String" label="^Email^Email^Email^" allowNulls="false" />
-    <field name="PasswordQuestion" type="String" label="^PasswordQuestion^Password Question^PasswordQuestion^" allowNulls="false" contextFields="LookupGroup='Password Questions'">
-      <items style="DropDownList" dataController="Lookups" dataView="grid1" dataTextField="LookupValue" dataValueField="LookupValue" />
-    </field>
+    <field name="PasswordQuestion" type="String" label="^PasswordQuestion^Password Question^PasswordQuestion^" allowNulls="false" contextFields="LookupGroup='Password Questions'" />
     <field name="PasswordAnswer" type="String" label="^PasswordAnswer^Password Answer^PasswordAnswer^" allowNulls="false" />
     <field name="DisplayRememberMe" type="Boolean" />
     <field name="OAuthEnabled" type="Boolean" />
